@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     var themes = [["🚗", "🛵", "🚀", "🚂", "🛻", "🚚", "🚜", "🛺", "🚔", "✈️", "🚁", "🛸", "🛶", "⛵️", "🚛", "🏍", "🚖", "🚒", "🚐", "🛴", "🚲", "🚃", "🚈", "🚤"], ["🇨🇦", "🏳️‍🌈", "🇦🇺", "🇬🇧", "🇺🇸", "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "🇩🇰", "🇭🇺", "🇬🇷", "🇵🇫", "🇬🇾", "🇩🇪", "🇭🇰", "🇯🇵", "🇯🇲", "🇮🇱", "🇮🇩", "🇲🇸", "🇲🇰", "🇵🇬"], ["🐒", "🐔", "🐧", "🦆", "🦅", "🦉", "🐺", "🦄", "🐝", "🦂", "🐳", "🦖", "🐫", "🐈", "🐉", "🦨", "🕊", "🦌", "🦥", "🐇"]]
-    var emojis = ["🚗", "🛵", "🚀", "🚂", "🛻", "🚚", "🚜", "🛺", "🚔", "✈️", "🚁", "🛸", "🛶", "⛵️", "🚛", "🏍", "🚖", "🚒", "🚐", "🛴", "🚲", "🚃", "🚈", "🚤"]
-    @State var emojiCount = 20
+    @State var emojis = ["🚗", "🛵", "🚀", "🚂", "🛻", "🚚", "🚜", "🛺", "🚔", "✈️", "🚁", "🛸", "🛶", "⛵️", "🚛", "🏍", "🚖", "🚒", "🚐", "🛴", "🚲", "🚃", "🚈", "🚤"]
+    @State var emojiCount = Int.random(in: 8...20)
     
     var body: some View {
         VStack {
@@ -43,7 +43,7 @@ struct ContentView: View {
     
     var vehicleTheme: some View {
         Button {
-            
+            changeTheme(0)
         } label: {
             VStack {
                 Image(systemName: "car")
@@ -55,7 +55,7 @@ struct ContentView: View {
     
     var flagTheme: some View {
         Button {
-            
+            changeTheme(1)
         } label: {
             VStack {
                 Image(systemName: "flag")
@@ -67,7 +67,7 @@ struct ContentView: View {
     
     var animalTheme: some View {
         Button {
-            
+            changeTheme(2)
         } label: {
             VStack {
                 Image(systemName: "pawprint")
@@ -75,6 +75,11 @@ struct ContentView: View {
                     .font(.body)
             }
         }
+    }
+    
+    func changeTheme(_ index: Int) {
+        emojis = themes[index].shuffled()
+        emojiCount = Int.random(in: 8...20)
     }
 }
 
