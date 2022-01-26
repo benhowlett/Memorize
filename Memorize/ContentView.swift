@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    var themes = [["🚗", "🛵", "🚀", "🚂", "🛻", "🚚", "🚜", "🛺", "🚔", "✈️", "🚁", "🛸", "🛶", "⛵️", "🚛", "🏍", "🚖", "🚒", "🚐", "🛴", "🚲", "🚃", "🚈", "🚤"], ["🇨🇦", "🏳️‍🌈", "🇦🇺", "🇬🇧", "🇺🇸", "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "🇩🇰", "🇭🇺", "🇬🇷", "🇵🇫", "🇬🇾", "🇩🇪", "🇭🇰", "🇯🇵", "🇯🇲", "🇮🇱", "🇮🇩", "🇲🇸", "🇲🇰", "🇵🇬"], ["🐒", "🐔", "🐧", "🦆", "🦅", "🦉", "🐺", "🦄", "🐝", "🦂", "🐳", "🦖", "🐫", "🐈", "🐉", "🦨", "🕊", "🦌", "🦥", "🐇"]]
-    @State var emojis = ["🚗", "🛵", "🚀", "🚂", "🛻", "🚚", "🚜", "🛺", "🚔", "✈️", "🚁", "🛸", "🛶", "⛵️", "🚛", "🏍", "🚖", "🚒", "🚐", "🛴", "🚲", "🚃", "🚈", "🚤"]
-    @State var emojiCount = Int.random(in: 8...20)
+//    var themes = [["🚗", "🛵", "🚀", "🚂", "🛻", "🚚", "🚜", "🛺", "🚔", "✈️", "🚁", "🛸", "🛶", "⛵️", "🚛", "🏍", "🚖", "🚒", "🚐", "🛴", "🚲", "🚃", "🚈", "🚤"], ["🇨🇦", "🏳️‍🌈", "🇦🇺", "🇬🇧", "🇺🇸", "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "🇩🇰", "🇭🇺", "🇬🇷", "🇵🇫", "🇬🇾", "🇩🇪", "🇭🇰", "🇯🇵", "🇯🇲", "🇮🇱", "🇮🇩", "🇲🇸", "🇲🇰", "🇵🇬"], ["🐒", "🐔", "🐧", "🦆", "🦅", "🦉", "🐺", "🦄", "🐝", "🦂", "🐳", "🦖", "🐫", "🐈", "🐉", "🦨", "🕊", "🦌", "🦥", "🐇"]]
+    let viewModel: EmojiMemoryGame
     
     var body: some View {
         VStack {
@@ -18,88 +17,31 @@ struct ContentView: View {
                 .font(.largeTitle)
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                    ForEach(emojis[0..<emojiCount], id: \.self) {emoji in
-                        CardView(content: emoji)
+                    ForEach(viewModel.cards) {card in
+                        CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
                     }
                 }
             }
             .foregroundColor(.red)
-            Spacer()
-            HStack {
-                Spacer()
-                vehicleTheme
-                Spacer()
-                flagTheme
-                Spacer()
-                animalTheme
-                Spacer()
-            }
-            .padding(.horizontal)
-            .font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
         }
         .padding(.horizontal)
-    }
-    
-    var vehicleTheme: some View {
-        Button {
-            changeTheme(0)
-        } label: {
-            VStack {
-                Image(systemName: "car")
-                Text("Vehicles")
-                    .font(.body)
-            }
-        }
-    }
-    
-    var flagTheme: some View {
-        Button {
-            changeTheme(1)
-        } label: {
-            VStack {
-                Image(systemName: "flag")
-                Text("Flags")
-                    .font(.body)
-            }
-        }
-    }
-    
-    var animalTheme: some View {
-        Button {
-            changeTheme(2)
-        } label: {
-            VStack {
-                Image(systemName: "pawprint")
-                Text("Animals")
-                    .font(.body)
-            }
-        }
-    }
-    
-    func changeTheme(_ index: Int) {
-        emojis = themes[index].shuffled()
-        emojiCount = Int.random(in: 8...20)
     }
 }
 
 struct CardView: View {
-    var content: String
-    @State var isFaceUp: Bool = true
+    let card: MemoryGame<String>.Card
     
     var body: some View {
         ZStack {
             let shape = RoundedRectangle(cornerRadius: 20)
-            if isFaceUp {
+            if card.isFaceUp {
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
-                Text(content).font(.largeTitle)
+                Text(card.content).font(.largeTitle)
             } else {
                 shape.fill()
             }
-        }
-        .onTapGesture {
-            isFaceUp = !isFaceUp
         }
     }
 }
@@ -111,13 +53,15 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let game = EmojiMemoryGame()
+        
+        ContentView(viewModel: game)
             .previewDevice("iPhone 13 mini")
             .preferredColorScheme(.light)
-        ContentView()
+        ContentView(viewModel: game)
             .previewDevice("iPhone 13 Pro")
             .preferredColorScheme(.dark)
-        ContentView()
+        ContentView(viewModel: game)
             .previewDevice("iPhone 13 Pro Max")
     }
 }
