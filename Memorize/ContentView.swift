@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-//    var themes = [["🚗", "🛵", "🚀", "🚂", "🛻", "🚚", "🚜", "🛺", "🚔", "✈️", "🚁", "🛸", "🛶", "⛵️", "🚛", "🏍", "🚖", "🚒", "🚐", "🛴", "🚲", "🚃", "🚈", "🚤"], ["🇨🇦", "🏳️‍🌈", "🇦🇺", "🇬🇧", "🇺🇸", "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "🇩🇰", "🇭🇺", "🇬🇷", "🇵🇫", "🇬🇾", "🇩🇪", "🇭🇰", "🇯🇵", "🇯🇲", "🇮🇱", "🇮🇩", "🇲🇸", "🇲🇰", "🇵🇬"], ["🐒", "🐔", "🐧", "🦆", "🦅", "🦉", "🐺", "🦄", "🐝", "🦂", "🐳", "🦖", "🐫", "🐈", "🐉", "🦨", "🕊", "🦌", "🦥", "🐇"]]
     @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
         VStack {
+            HStack {
+                Text(viewModel.getCurrentThemeName())
+                Spacer()
+                Text("Score: \(viewModel.getCurrentScore())")
+            }
+            .font(.title)
+            .foregroundColor(viewModel.getCurrentThemeColor())
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 75))]) {
                     ForEach(viewModel.cards) {card in
@@ -24,7 +30,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .foregroundColor(.red)
+            .foregroundColor(viewModel.getCurrentThemeColor())
             Button {
                 viewModel.createNewGame()
             } label: {
@@ -32,7 +38,7 @@ struct ContentView: View {
                     .font(.title)
             }
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
 
