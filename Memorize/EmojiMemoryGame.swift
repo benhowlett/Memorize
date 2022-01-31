@@ -11,7 +11,7 @@ class EmojiMemoryGame: ObservableObject {
     typealias Card = MemoryGame<String>.Card
     
     static var vehicleTheme = Theme(name: "Vehicles", emojis: ["🚗", "🛵", "🚀", "🚂", "🛻", "🚚", "🚜", "🛺", "🚔", "✈️", "🚁", "🛸", "🛶", "⛵️", "🚛", "🏍", "🚖", "🚒", "🚐", "🛴", "🚲", "🚃", "🚈", "🚤"], numberOfPairsOfCards: 8, color: .red)
-    static var flagTheme = Theme(name: "Flags", emojis: ["🇨🇦", "🏳️‍🌈", "🇦🇺", "🇬🇧", "🇺🇸", "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "🇩🇰", "🇭🇺", "🇬🇷", "🇵🇫", "🇬🇾", "🇩🇪", "🇭🇰", "🇯🇵", "🇯🇲", "🇮🇱", "🇮🇩", "🇲🇸", "🇲🇰", "🇵🇬"], numberOfPairsOfCards: 10, color: .blue)
+    static var flagTheme = Theme(name: "Flags", emojis: ["🇨🇦", "🏳️‍🌈", "🇦🇺", "🇬🇧", "🇺🇸", "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "🇩🇰", "🇭🇺", "🇬🇷", "🇵🇫", "🇬🇾", "🇩🇪", "🇭🇰", "🇯🇵", "🇯🇲", "🇮🇱", "🇮🇩", "🇲🇸", "🇲🇰", "🇵🇬"], numberOfPairsOfCards: 15, color: .blue)
     static var animalTheme = Theme(name: "Animals", emojis: ["🐒", "🐔", "🐧", "🦆", "🦅", "🦉", "🐺", "🦄", "🐝", "🦂", "🐳", "🦖", "🐫", "🐈", "🐉", "🦨", "🕊", "🦌", "🦥", "🐇"], numberOfPairsOfCards: 7, color: .green)
     static var toolTheme = Theme(name: "Tools", emojis: ["🔨", "🪛", "🔧", "⛏", "🪚", "🪓", "🧲", "🧰", "🪜", "⚙️", "🧱", "🔪"], numberOfPairsOfCards: 6, color: .purple)
     static var sportsTheme = Theme(name: "Sports", emojis: ["⚽️", "🏀", "🏈", "⚾️", "🎾", "🥏", "🏒", "🏸"], numberOfPairsOfCards: 9, color: .yellow)
